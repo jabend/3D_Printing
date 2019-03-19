@@ -39,7 +39,7 @@ class addLinesTotalOnDisplay(Script):
             name = self.getSettingValueByKey("name")
         else:
             name = Application.getInstance().getPrintInformation().jobName
-        lcd_text = "M117 " + name + " layer "
+        lcd_text = "M117 "
         i = 0
         line_count = ""
         for layer in data:
@@ -47,11 +47,17 @@ class addLinesTotalOnDisplay(Script):
             layer_index = data.index(layer)
             lines = layer.split("\n")
             for line in lines:
+                if "TIME:" in line.upper():
+                    seconds = int(re.sub(r'^;TIME:','',line))
+                    m, s = divmod(seconds, 60)
+                    h, m = divmod(m, 60)
+                    time = "%d:%02d:%02d" % (h, m, s)
                 if "COUNT:" in line.upper():
-                    line_count = '/' + re.sub(r'^.*COUNT: *',r'',line)
+                    line_count = re.sub(r'^.*COUNT: *',r'',line)
                 if line.startswith(";LAYER:"):
                     line_index = lines.index(line)
-                    lines.insert(line_index + 1, display_text + line_count)
+                    line_percent = "{0:.1%}".format(float(i)/float(line_count))
+                    lines.insert(line_index + 1, display_text + '/' + line_count + ' ' + line_percent + ' ' + time)
                     i += 1
             final_lines = "\n".join(lines)
             data[layer_index] = final_lines
