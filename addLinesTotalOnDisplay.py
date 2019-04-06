@@ -51,7 +51,7 @@ class addLinesTotalOnDisplay(Script):
                     seconds = int(re.sub(r'^;TIME:','',line))
                     m, s = divmod(seconds, 60)
                     h, m = divmod(m, 60)
-                    time = "%d\:%02d\:%02d" % (h, m, s)
+                    time = "%dh %02dm" % (h, m)
                 if "COUNT:" in line.upper():
                     line_count = re.sub(r'^.*COUNT: *',r'',line)
                 if line.startswith(";LAYER:"):
