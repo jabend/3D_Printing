@@ -40,7 +40,7 @@ class addLinesTotalOnDisplay(Script):
         else:
             name = Application.getInstance().getPrintInformation().jobName
         lcd_text = "M117 "
-        i = 0
+        i = 1
         line_count = ""
         for layer in data:
             display_text = lcd_text + str(i)
