@@ -18,7 +18,7 @@ class addLinesTotalOnDisplay(Script):
 
     def getSettingDataString(self):
         return """{
-            "name": "Layer Info Display",
+            "name": "Layer Percent Time Info Display",
             "key": "LayerInfoLCD",
             "metadata": {},
             "version": 2,
